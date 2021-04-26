@@ -1,0 +1,51 @@
+<%- include('../../partials/head.ejs') %>
+
+<div class="signup-main-form-main-body-section-wrap mx-auto">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sign-up-form-heading-main-head">
+                    <h3>Login Your Account</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sign-upp-main-form-main-section">
+                    <form action="/auth/login" method="POST">
+                        <div class="sign-upp-main-form-main-single-item">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="Email.." class="form-control <%= error.email ? 'is-invalid ' : '' %>">
+                            <div class="invalid-feedback">
+                                <%= error.email && error.email %>
+                            </div>
+                        </div>
+                        <div class="sign-upp-main-form-main-single-item">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="Password.." class="form-control <%= error.password ? 'is-invalid ' : '' %>">
+                            <div class="invalid-feedback">
+                                <%= error.password && error.password %>
+                            </div>
+                        </div>
+                        <div class="sign-upp-main-form-main-single-item">
+                            <button type="submit" value="signup"> Login </button>
+                        </div>
+                        <div class="sign-upp-main-form-main-logout">
+                            <% if(isLoggedIn) { %>
+                                <a href="loout">Logout</a>
+                            <% } %>
+                        </div>
+                    </form>
+                    <div class="dont-have-an-accout-linkk-sec">
+                        <a href="/auth/signup"> Don't have an account? Create One</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../partials/footer.ejs') %>
+
+</body>
+</html>

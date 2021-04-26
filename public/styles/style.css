@@ -1,0 +1,91 @@
+footer {
+    background-color: #333;
+    min-height: 90px;
+    text-align: center;
+    color: #f1f1f1;
+    font-size: 20px;
+}
+
+/* Signup Form Start */
+.signup-main-form-main-body-section-wrap {
+    width: 46%;
+    background-color: #f1f1f1;
+    padding: 15px;
+    margin-top: 25px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+}
+.sign-up-form-heading-main-head h3 {
+    font-size: 25px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.sign-upp-main-form-main-single-item label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+.sign-upp-main-form-main-single-item {
+    margin-bottom: 12px;
+}
+.sign-upp-main-form-main-single-item input {
+    width: 100%;
+    height: 36px;
+    border: 1px solid #d0d0d0;
+    outline: none;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 14px;
+}
+.sign-upp-main-form-main-single-item button {
+    border: none;
+    outline: none;
+    background-color: #30a946;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    padding: 6px 18px 6px 18px;
+    margin-top: 16px;
+    margin-bottom: 20px;
+}
+.sign-upp-main-form-main-single-item button:hover {
+    background-color: #069821;
+    transition: .2s;
+}
+.dont-have-an-accout-linkk-sec {
+    margin-top: -12px;
+    margin-bottom: 20px;
+}
+.dont-have-an-accout-linkk-sec a {
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
+}
+/* Logout btn */
+.sign-upp-main-form-main-logout a {
+    background-color: #e44a2e;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    padding: 6px 18px 6px 18px;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    position: absolute;
+    top: -79px;
+    left: 90px;
+}
+.sign-upp-main-form-main-logout {
+    margin-bottom: 10px;
+    position: relative;
+}
+/* Logout btn */
+/* Signup Form End */

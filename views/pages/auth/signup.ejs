@@ -1,0 +1,61 @@
+<%- include('../../partials/head.ejs') %>
+
+<div class="signup-main-form-main-body-section-wrap mx-auto">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sign-up-form-heading-main-head">
+                    <h3>Create A New Account</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sign-upp-main-form-main-section">
+                    <form action="/auth/signup" method="POST">
+                        <div class="sign-upp-main-form-main-single-item">
+                            <label for="username">User Name</label>
+                            <input type="text" name="username" id="username" placeholder="User Name.." class="form-control <%= error.username ? 'is-invalid ' : '' %>" value="<%= value.username ? value.username : '' %>" >
+                            <div class="invalid-feedback">
+                                <%= error.username && error.username %>
+                            </div>
+                        </div>
+                        
+                        <div class="sign-upp-main-form-main-single-item">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="Email.." class="form-control <%= error.email ? 'is-invalid ' : '' %>" value="<%= value.email ? value.email : '' %>">
+                            <div class="invalid-feedback">
+                                <%= error.email && error.email %>
+                            </div>
+                        </div>
+                        <div class="sign-upp-main-form-main-single-item">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="Password.." class="form-control <%= error.password ? 'is-invalid ' : '' %>" value="<%= value.password ? value.password : '' %>">
+                            <div class="invalid-feedback">
+                                <%= error.password && error.password %>
+                            </div>
+                        </div>
+                        <div class="sign-upp-main-form-main-single-item">
+                            <label for="confirmpassword">Confirm password</label>
+                            <input type="password" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password.." class="form-control <%= error.confirmpassword ? 'is-invalid ' : '' %>">
+                            <div class="invalid-feedback">
+                                <%= error.confirmpassword && error.confirmpassword %>
+                            </div>
+                        </div>
+                        <div class="sign-upp-main-form-main-single-item">
+                            <button type="submit" value="signup"> Signup </button>
+                        </div>
+                    </form>
+                    <div class="dont-have-an-accout-linkk-sec">
+                        <a href="/auth/login"> Already have an account? Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../partials/footer.ejs') %>
+
+</body>
+</html>
