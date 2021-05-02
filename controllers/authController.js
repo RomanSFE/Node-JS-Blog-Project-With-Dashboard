@@ -42,14 +42,13 @@ exports.signupPostController = async ( req, res, next) => {
 
 // Login Controller Start
 exports.loginGetController = async ( req, res, next) => {
-    // let isLoggedIn = req.get('Cookie').includes('isLoggedIn=true') ? true : false
-    res.render('pages/auth/login', {title: 'Login Your Account', error: {}, isLoggedIn:false})
+    console.log(req.session.isLoggedIn, req.session.user)
+    res.render('pages/auth/login', {title: 'Login Your Account', error: {}})
 }
 exports.loginPostController = async ( req, res, next) => {
     let {email, password} = req.body
 
-    // let isLoggedIn = req.get('Cookie').includes('isLoggedIn=true') ? true : false
-    res.render('pages/auth/login', {title: 'Login Your Account', error: {}, isLoggedIn:false})
+    // res.render('pages/auth/login', {title: 'Login Your Account', error: {}})
 
     let errors = validationResult(req).formatWith(errorFormatter)
     if(!errors.isEmpty()) {
@@ -76,8 +75,15 @@ exports.loginPostController = async ( req, res, next) => {
             })
         }
 
-        res.setHeader('Set-Cookie', 'isLoggedIn=true')
-        res.render('pages/auth/login', {title: 'Login Your Account', error: {}, isLoggedIn:false})
+        req.session.isLoggedIn = true
+        req.session.user = user
+        req.session.save(err => {
+            if (err) {
+                console.log(err)
+                return next(err)
+            } 
+            res.redirect('/dashboard')
+        })
 
     } catch (e) {
         console.log(e)
@@ -85,5 +91,12 @@ exports.loginPostController = async ( req, res, next) => {
 }
 
 exports.logoutController = ( req, res, next) => {
-
+    req.session.destroy(err => {
+        if (err) {
+            console.log(err)
+            return next(err)
+        } 
+        return res.redirect('/auth/login')
+        
+    })
 }
