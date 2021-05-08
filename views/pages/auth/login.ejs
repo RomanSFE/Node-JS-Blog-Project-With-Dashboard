@@ -15,14 +15,14 @@
                     <form action="/auth/login" method="POST">
                         <div class="sign-upp-main-form-main-single-item">
                             <label for="email">Email</label>
-                            <input type="email" name="email" id="email" placeholder="Email.." class="form-control <%= error.email ? 'is-invalid ' : '' %>">
+                            <input type="email" name="email" id="email" placeholder="Email.." class="form-control <%= error.email ? 'is-invalid' : '' %>">
                             <div class="invalid-feedback">
                                 <%= error.email && error.email %>
                             </div>
                         </div>
                         <div class="sign-upp-main-form-main-single-item">
                             <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="Password.." class="form-control <%= error.password ? 'is-invalid ' : '' %>">
+                            <input type="password" name="password" id="password" placeholder="Password.." class="form-control <%= error.password ? 'is-invalid' : '' %>">
                             <div class="invalid-feedback">
                                 <%= error.password && error.password %>
                             </div>
