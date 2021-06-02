@@ -24,7 +24,7 @@ const profileSchema = new Schema({
         trim: true,
         maxlength: 500
     },
-    profilepic: String,
+    profilePic: String,
     links: {
         website: String,
         facebook: String,

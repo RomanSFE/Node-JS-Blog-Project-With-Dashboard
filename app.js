@@ -1,25 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const morgan = require('morgan')
-const session = require('express-session')
-const MongoDBStore = require('connect-mongodb-session')(session)
-const flash = require('connect-flash')
-
-// Import Routes
-const authRoutes = require('./routes/authRoute')
-const dashboardRoutes = require('./routes/dashboardRoute')
 
 // Import Middleware
-const {bindUserWithRequest} = require('./middleware/authMiddleware')
-const setLocals = require('./middleware/setLocals')
+const setMiddleware = require('./middleware/middleware')
+// Import Routes
+const setRoutes = require('./routes/routes')
+
 
 // Session store
 const mongoUrii = 'mongodb+srv://roman:roman500500@cluster0.b0s2y.mongodb.net/nodeproject?retryWrites=true&w=majority'
-const store = new MongoDBStore({
-    uri: mongoUrii,
-    collection: 'sessions'
-});
-// End
 
 const app = express()
 
@@ -27,37 +16,32 @@ const app = express()
 app.set('view engine', 'ejs')
 app.set('views', 'views')
 
-// MiddleWare
-const middleware = [
-    morgan('dev'),
-    express.static('public'),
-    express.urlencoded({ extended: true }),
-    express.json(),
-    session({
-       secret: process.env.SECRET_KEY || 'SECRET_KEY',
-       resave: false,
-       saveUninitialized: false,
-       store: store,
-    }),
-    bindUserWithRequest(),
-    setLocals(),
-    flash()
-]
-app.use(middleware)
 
-app.use('/auth', authRoutes)
-app.use('/dashboard', dashboardRoutes)
+// Using Middleware from Middleware folder
+setMiddleware(app)
 
-app.get('/', (req, res) => {
+// Using Routes from Routes folder
+setRoutes(app)
 
-    res.json({
-        message: 'Hello Node js'
-    })
+// 404 500 Middleware Start
+app.use((req, res, next) => {
+    let error = new Error('404 Not Found')
+    error.status = 404
+    next(error)
 })
+
+app.use((error, req, res, next) => {
+    if(error.status == 404) {
+        return res.render('pages/error/404', {flashMessage: {} })
+    }
+    console.log(error)
+    res.render('pages/error/500', {flashMessage: {} })
+})
+// 404 500 Middleware End
 
 const PORT = process.env.PORT || 8080
 
-// const mongoUrii = 'mongodb+srv://roman:roman500500@cluster0.b0s2y.mongodb.net/nodeproject?retryWrites=true&w=majority'
+
 mongoose.connect(mongoUrii, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true})
 .then(() =>{
     console.log('Database Connected')
