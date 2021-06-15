@@ -30,14 +30,17 @@
                             <label for="name">Enter Your Name</label>
                             <input 
                                 type="text"
-                                class="form-control"
+                                class="form-control <%= error.name ? 'is-invalid' : '' %>"
                                 name="name"
                                 id="name"
                                 placeholder="Enter your name.."
                             >
+                            <div class="invalid-feedback">
+                                <%= error.name %>
+                            </div>
                         </div>
                         <div class="dash-board-profile-create-form-inpt-sngl-fld form-group">
-                            <label for="name">Enter Your Email</label>
+                            <label for="email">Enter Your Email</label>
                             <input 
                                 type="text"
                                 class="form-control"
@@ -49,22 +52,28 @@
                             >
                         </div>
                         <div class="dash-board-profile-create-form-inpt-sngl-fld form-group">
-                            <label for="name">Enter A Short Title</label>
+                            <label for="title">Enter A Short Title</label>
                             <input 
                                 type="text"
-                                class="form-control"
+                                class="form-control <%= error.title ? 'is-invalid' : '' %>"
                                 name="title"
                                 id="title"
                                 placeholder="Enter short title.."
                             >
+                            <div class="invalid-feedback">
+                                <%= error.title %>
+                            </div>
                         </div>
                         <div class="dash-board-profile-create-form-inpt-sngl-fld form-group">
-                            <label for="name">Enter A Short Bio</label>
+                            <label for="bio">Enter A Short Bio</label>
                             <textarea
-                                class="form-control"
+                                class="form-control <%= error.bio ? 'is-invalid' : '' %>"
                                 name="bio"
                                 id="bio"
                             ></textarea>
+                            <div class="invalid-feedback">
+                                <%= error.bio %>
+                            </div>
                         </div>
                         <div class="dash-board-profile-create-form-inpt-sngl-fld form-group">
                             <h4>Your Social Links</h4>
@@ -72,39 +81,52 @@
                                 <span><i class="fas fa-globe"></i></span>
                                 <input 
                                     type="text"
-                                    class="form-control"
+                                    class="form-control <%= error.website ? 'is-invalid' : '' %>"
                                     name="website"
                                     placeholder="Enter website link.."
                                 >
+                                <div class="invalid-feedback">
+                                    <%= error.website %>
+                                </div>
                             </div>
                             <div class="dash-social-links-sectionns mb-3">
                                 <span><i class="fab fa-facebook"></i></span>
                                 <input 
                                     type="text"
-                                    class="form-control"
+                                    class="form-control <%= error.facebook ? 'is-invalid' : '' %>"
                                     name="facebook"
                                     placeholder="Enter facebook link.."
                                 >
+                                <div class="invalid-feedback">
+                                    <%= error.facebook %>
+                                </div>
                             </div>
                             <div class="dash-social-links-sectionns mb-3">
                                 <span><i class="fab fa-twitter"></i></span>
                                 <input 
                                     type="text"
-                                    class="form-control"
+                                    class="form-control <%= error.twitter ? 'is-invalid' : '' %>"
                                     name="twitter"
                                     placeholder="Enter twitter link.."
                                 >
+                                <div class="invalid-feedback">
+                                    <%= error.twitter %>
+                                </div>
                             </div>
                             <div class="dash-social-links-sectionns mb-3">
                                 <span><i class="fab fa-github-square"></i></span>
                                 <input 
                                     type="text"
-                                    class="form-control"
+                                    class="form-control <%= error.github ? 'is-invalid' : '' %>"
                                     name="github"
                                     placeholder="Enter github link.."
                                 >
+                                <div class="invalid-feedback">
+                                    <%= error.github %>
+                                </div>
                             </div>
                         </div>
+                        <button type="submit">Create Profile</button>
                     </form>
                 </div>
             </div>
