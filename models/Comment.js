@@ -1,6 +1,6 @@
 const { Schema, model} = require('mongoose')
-// const User = require('./User')
-// const Post = require('./Post')
+const User = require('./User')
+const Post = require('./Post')
 
 const commentSchema = new Schema({
     post: {
@@ -31,7 +31,7 @@ const commentSchema = new Schema({
             },
             createAt: {
                 type: Date,
-                default: new date()
+                default: new Date()
             }
         }
     ]

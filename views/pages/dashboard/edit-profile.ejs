@@ -1,18 +1,168 @@
 <%- include('../../partials/head.ejs') %>
 
-<div class="dashboarddd-main-sectionn-page-main-section">
-    <div class="container">
+<div class="dashboarddd-main-sectionn-page-create-profile-page">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div class="dashboard-main-page-booxx text-center">
-                    <h3>Edit Profile</h3>
+            <div class="col-md-2">
+                <%- include('../../partials/sidebar.ejs') %>
+            </div>
+            <div class="col-md-10">
+                <div class="dashboard-main-page-booxx-create-prof text-center">
+                    <h3><%= title %></h3>
+                </div>
+                <div class="dashboard-main-page-booxx-profile-pic">
+                    <img src="<%= user.profilePics %>" alt="profile-pic" class="img-thumbnail" id="profilePics">
+                    <form action="/uploads/profilePics" class="my-2" id="profilePicsForm">
+                        <input type="file" name="profilePics" id="profilePicsFile" accept="image/*">
+                        <input 
+                            type="button"
+                            value="Remove Pic"
+                            id="removeprofilePics"
+                            style="display: <%= user.profilePics.includes('def-profile-img.png') ? 'none' : 'block' %>"
+                            class="btn btn-danger btn-sm my-2"
+                        >
+                        <!-- <button type="button" class="btn btn-secondary" id="upload-image">Upload</button> -->
+                    </form>
+                </div>
+                <div class="dash-brdd-main-profile-pic-all-info-form">
+                    <form action="/dashboard/edit-profile" method="POST">
+                        <div class="dash-board-profile-create-form-inpt-sngl-fld form-group">
+                            <label for="name">Enter Your Name</label>
+                            <input 
+                                type="text"
+                                class="form-control <%= error.name ? 'is-invalid' : '' %>"
+                                name="name"
+                                id="name"
+                                placeholder="Enter your name.."
+                                value="<%= profile.name %>"
+                            >
+                            <div class="invalid-feedback">
+                                <%= error.name %>
+                            </div>
+                        </div>
+                        <div class="dash-board-profile-create-form-inpt-sngl-fld form-group">
+                            <label for="email">Enter Your Email</label>
+                            <input 
+                                type="text"
+                                class="form-control"
+                                name="email"
+                                id="email"
+                                placeholder="Enter your email.."
+                                value="<%= user.email %>"
+                                disabled
+                            >
+                        </div>
+                        <div class="dash-board-profile-create-form-inpt-sngl-fld form-group">
+                            <label for="title">Enter A Short Title</label>
+                            <input 
+                                type="text"
+                                class="form-control <%= error.title ? 'is-invalid' : '' %>"
+                                name="title"
+                                id="title"
+                                placeholder="Enter short title.."
+                                value="<%= profile.title %>"
+                            >
+                            <div class="invalid-feedback">
+                                <%= error.title %>
+                            </div>
+                        </div>
+                        <div class="dash-board-profile-create-form-inpt-sngl-fld form-group">
+                            <label for="bio">Enter A Short Bio</label>
+                            <textarea
+                                class="form-control <%= error.bio ? 'is-invalid' : '' %>"
+                                name="bio"
+                                id="bio"><%= profile.bio %></textarea>
+                            <div class="invalid-feedback">
+                                <%= error.bio %>
+                            </div>
+                        </div>
+                        <div class="dash-board-profile-create-form-inpt-sngl-fld form-group">
+                            <h4>Your Social Links</h4>
+                            <div class="dash-social-links-sectionns mb-3">
+                                <span><i class="fas fa-globe"></i></span>
+                                <input 
+                                    type="text"
+                                    class="form-control <%= error.website ? 'is-invalid' : '' %>"
+                                    name="website"
+                                    placeholder="Enter website link.."
+                                    value="<%= profile.links.website %>"
+                                >
+                                <div class="invalid-feedback">
+                                    <%= error.website %>
+                                </div>
+                            </div>
+                            <div class="dash-social-links-sectionns mb-3">
+                                <span><i class="fab fa-facebook"></i></span>
+                                <input 
+                                    type="text"
+                                    class="form-control <%= error.facebook ? 'is-invalid' : '' %>"
+                                    name="facebook"
+                                    placeholder="Enter facebook link.."
+                                    value="<%= profile.links.facebook %>"
+                                >
+                                <div class="invalid-feedback">
+                                    <%= error.facebook %>
+                                </div>
+                            </div>
+                            <div class="dash-social-links-sectionns mb-3">
+                                <span><i class="fab fa-twitter"></i></span>
+                                <input 
+                                    type="text"
+                                    class="form-control <%= error.twitter ? 'is-invalid' : '' %>"
+                                    name="twitter"
+                                    placeholder="Enter twitter link.."
+                                    value="<%= profile.links.twitter %>"
+                                >
+                                <div class="invalid-feedback">
+                                    <%= error.twitter %>
+                                </div>
+                            </div>
+                            <div class="dash-social-links-sectionns mb-3">
+                                <span><i class="fab fa-github-square"></i></span>
+                                <input 
+                                    type="text"
+                                    class="form-control <%= error.github ? 'is-invalid' : '' %>"
+                                    name="github"
+                                    placeholder="Enter github link.."
+                                    value="<%= profile.links.github %>"
+                                >
+                                <div class="invalid-feedback">
+                                    <%= error.github %>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal" id="crop-modal" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div id="cropped-image"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="cancel-cropping" class="btn btn-primary">Cancel</button>
+              <button type="button" class="btn btn-secondary" id="upload-image">Upload</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Modal -->
 </div>
 
 <%- include('../../partials/footer.ejs') %>
-
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.4/croppie.min.js" integrity="sha512-G6Olzu8FeNbYdvxffukJbtbP7ANKuDN/64Mg5zFQQd4VTL5ddtaZPk6zXtWlx1Ir6SQtMLapeobyOnhqb05M0w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/scripts/profilePicUpload.js"></script>
 </body>
 </html>

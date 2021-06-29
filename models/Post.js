@@ -1,5 +1,5 @@
 const { Schema, model} = require('mongoose')
-// const User = require('./User')
+const User = require('./User')
 const Comment = require('./Comment')
 
 const postSchema = new Schema({
@@ -11,7 +11,8 @@ const postSchema = new Schema({
     },
     body: {
         type: String,
-        required: true
+        required: true,
+        maxlength: 5000,
     },
     author: {
         type: Schema.Types.ObjectId,
@@ -36,11 +37,25 @@ const postSchema = new Schema({
             ref: 'User',
         }
     ],
-    comments: {
-        type: Schema.Types.ObjectId,
-        ref: 'Comment'
-    }
+    comments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Comment'
+        }
+    ]
 }, {timestamps: true})
+
+postSchema.index({
+    title: 'text',
+    body: 'text',
+    tags: 'text',
+}, {
+    weights: {
+        title: 5,
+        tags: 5,
+        body: 2,
+    }
+})
 
 const Post = model('Post', postSchema)
 

@@ -1,0 +1,48 @@
+<%- include('../../../partials/head.ejs') %>
+
+<div class="dashboarddd-main-sectionn-page-create-profile-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <%- include('../../../partials/sidebar.ejs') %>
+            </div>
+            <div class="col-md-10">
+              <div class="node-blog-project-all-post-list-main-section">
+                  <div class="node-blog-project-all-post-list-my-post-lst">
+                      <h4>List of My Posts</h4>
+                  </div>
+                  <div class="container">
+                    <div class="row">
+                        <!-- <div class="col-md-6 node-blog-project-all-post-list-main-body"> -->
+                            <% if(posts.length == 0) { %>
+                            <div class="node-blog-project-all-post-list-empty-post text-center">
+                                <h5>Your Posts is Empty</h5>
+                                <a class="btn btn-primary" href="/posts/create">Create Post</a>
+                            </div>
+                            <% } else { %>
+                              <% for(let post of posts.reverse()) { %>
+                                  <div class="col-md-5 card my-3 node-blog-project-all-post-list-single-post-section">
+                                      <% if(post.thumbnail) { %>
+                                          <img src="<%= post.thumbnail %>" alt="<% post.title %>" class="card-img-top mt-2">
+                                      <%  } %>
+                                      <div class="card-body">
+                                          <a href="/posts/edit/<%= post._id%>">
+                                              <h5><%= post.title %></h5>
+                                          </a>
+                                      </div>
+                                  </div>
+                              <% } %>
+                            <% } %>
+                        <!-- </div> -->
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../../partials/footer.ejs') %>
+
+</body>
+</html>

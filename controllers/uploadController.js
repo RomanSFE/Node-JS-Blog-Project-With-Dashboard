@@ -6,6 +6,7 @@ const Profile = require('../models/Profile')
 exports.uploadProfilePics = async (req, res, next) => {
     if(req.file) {
         try {
+            let oldProfilePics = req.user.profilePics
             let profile = await Profile.findOne({ user: req.user._id })
             let profilePics = `/uploads/${req.file.filename}`
 
@@ -20,6 +21,13 @@ exports.uploadProfilePics = async (req, res, next) => {
                 { _id: req.user._id },
                 {$set: {profilePics} }
             )
+            
+            if(oldProfilePics != '/uploads/def-profile-img.png') {
+                fs.unlink(`public${oldProfilePics}`, err => {
+                    if(err) console.log(err)
+                })
+            }
+
             res.status(200).json({
                 profilePics
             })
@@ -65,4 +73,15 @@ exports.removeProfilePics = ( req, res, next ) => {
             message: 'Profile Pic can not remove'
         })
     }
+}
+
+exports.postImageUploadController = (req, res, next) => {
+    if (req.file) {
+        return res.status(200).json({
+            imgUrl: `/uploads/${req.file.filename}`
+        })
+    }
+    return res.status('500').json({
+        message: 'Server Error'
+    })
 }

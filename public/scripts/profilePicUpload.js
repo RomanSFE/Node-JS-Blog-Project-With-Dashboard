@@ -36,9 +36,6 @@ window.onload = function() {
 
     $('#cancel-cropping').on('click', function () {
         $('#crop-modal').modal('hide')
-        setTimeout(() => {
-            baseCropping.croppie('destroy')
-        }, 1000)
     })
 
     $('#upload-image').on('click', function() {
@@ -65,12 +62,13 @@ window.onload = function() {
         .then(data => {
             document.getElementById('removeProfilePics').style.display = 'block'
             document.getElementById('profilePics').src = data.profilePics
-            document.getElementById('profilePicsForm').requestFullscreen()
+            document.getElementById('profilePicsForm').reset()
 
             $('#crop-modal').modal('hide')
-            setTimeout(() => {
-                baseCropping.croppie('destroy')
-            }, 1000)
+        })
+        .catch(e => {
+            console.log(e)
+            alert('Server Error Occurred')
         })
     })
 
@@ -84,7 +82,7 @@ window.onload = function() {
             .then(data => {
                 document.getElementById('removeProfilePics').style.display = 'none'
                 document.getElementById('profilePics').src = data.profilePics
-                document.getElementById('profilePicsForm').requestFullscreen()
+                document.getElementById('profilePicsForm').reset()
             })
             .catch(e => {
                 console.log(e)
