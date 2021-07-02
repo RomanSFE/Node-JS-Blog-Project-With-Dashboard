@@ -2,17 +2,31 @@ const {validationResult} = require('express-validator')
 const Flash = require('../utils/Flash')
 const User = require('../models/User')
 const Profile = require('../models/Profile')
+const Post = require('../models/Post')
+const Comment = require('../models/Comment')
 const errorFormatter = require('../utils/validatorErrorFormator')
 
 exports.dashboardGetController = async (req, res, next) => {
     try {
-        let profile = await Profile.findOne({user: req.user._id})
+        let profile = await Profile.findOne({ 
+            user: req.user._id
+        })
+        .populate({
+            path: 'posts',
+            select: 'title thumbnail'
+        })
+        .populate({
+            path: 'bookmarks',
+            select: 'title thumbnail'
+        })
 
         if(profile) {
             return res.render('pages/dashboard/dashboard', 
             {
                 title: 'My Dashboard',
-                flashMessage: Flash.getMessage(req)
+                flashMessage: Flash.getMessage(req),
+                posts: profile.posts,
+                bookmarks: profile.bookmarks
             })
         }
         res.redirect('/dashboard/create-profile')
@@ -170,6 +184,55 @@ exports.editProfilePostController = async (req, res, next) => {
         })
         
     } catch (e) {
+        next(e)
+    }
+}
+
+exports.bookmarksGetController = async (req, res, next) => {
+    try {
+        let profile = await Profile.findOne({user: req.user._id})
+            .populate({
+                path: 'bookmarks',
+                model: 'Post',
+                select: 'title thumbnail'
+            })
+
+            res.render('pages/dashboard/bookmarks', {
+                title: 'My Bookmarks',
+                flashMessage: Flash.getMessage(req),
+                posts: profile.bookmarks
+            })
+
+    } catch(e) {
+        next(e)
+    }
+}
+
+exports.commentsGetController = async (req, res, next) => {
+    try {
+        let profile = await Profile.findOne({user: req.user._id})
+        let comments = await Comment.find({post: { $in: profile.posts }})
+            .populate({
+                path: 'post',
+                select: 'title'
+            })
+            .populate({
+                path: 'user',
+                select: 'username profilePics'
+            })
+            .populate({
+                path: 'replies.user',
+                select: 'username profilePics'
+            })
+
+
+            res.render('pages/dashboard/comments', {
+                title: 'My Recent Comments',
+                flashMessage: Flash.getMessage(req),
+                comments
+            })
+
+    } catch(e) {
         next(e)
     }
 }

@@ -46,6 +46,33 @@
                         <% } %>
                     </div>
                 </div>
+                <div class="author-all-posts-secccttbb">
+                    <div class="djsdhfhgh my-4">
+                        <h5>Post Created By This Author:</h5>
+                    </div>
+                    <div class="row">
+                        <% if(author.profile.posts.length == 0) { %>
+                            <div class="post-emptyyy text-center text-muted">
+                                <p>There is no posts available right now</p>
+                            </div>
+                        <% } else { %>
+                            <% for( let post of author.profile.posts.reverse()) { %>
+                                <div class="card col-sm-5 my-2">
+                                    <% if(post.thumbnail) { %>
+                                        <img class="img-fluid mt-2" src="<%= post.thumbnail %>" alt="">
+                                    <% } %>
+                                    <div class="card-body my-3">
+                                        <a href="/explorer/<%= post._id %>" style="color: #222222;">
+                                            <p class="my-2">
+                                                <%= post.title %>
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

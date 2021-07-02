@@ -7,8 +7,59 @@
                 <%- include('../../partials/sidebar.ejs') %>
             </div>
             <div class="col-md-10">
-                <div class="dashboard-main-page-booxx-create-prof-my-dashboard text-center">
-                    <h3>My Dashboard</h3>
+                <div class="dashboard-main-page-booxx-create-prof-my-dashboard my-4">
+                    <div class="my-recent-posts-dashboard-show text-left">
+                        <h5>My Recent Posts</h5>
+                    </div>
+                    <div class="row">
+                        <% if( posts.length == 0 ) { %>
+                            <div class="post-emptyyy text-center text-muted">
+                                <p>There is no posts available right now</p>
+                            </div>
+                        <% } else { %>
+                            <% for( let post of posts.reverse()) { %>
+                                <div class="card col-sm-3 my-2 m-2">
+                                    <% if(post.thumbnail) { %>
+                                        <img class="img-fluid mt-2" src="<%= post.thumbnail %>" alt="">
+                                    <% } %>
+                                    <div class="card-body my-3">
+                                        <a href="/explorer/<%= post._id %>" style="color: #222222;">
+                                            <p class="my-2">
+                                                <%= post.title %>
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            <% } %>
+                        <% } %>
+                    </div>
+
+                    <div class="my-recent-posts-dashboard-show text-left my-3 mt-5">
+                        <h5>My Recent Bookmarks</h5>
+                    </div>
+                    <div class="row">
+
+                        <% if( bookmarks.length == 0 ) { %>
+                            <div class="post-emptyyy text-center text-muted">
+                                <p>There is no posts available right now</p>
+                            </div>
+                        <% } else { %>
+                            <% for( let post of bookmarks.reverse()) { %>
+                                <div class="card col-sm-3 my-2 m-2">
+                                    <% if(post.thumbnail) { %>
+                                        <img class="img-fluid mt-2" src="<%= post.thumbnail %>" alt="">
+                                    <% } %>
+                                    <div class="card-body my-3">
+                                        <a href="/explorer/<%= post._id %>" style="color: #222222;">
+                                            <p class="my-2">
+                                                <%= post.title %>
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+                            <% } %>
+                        <% } %>
+                    </div>
                 </div> 
             </div>
         </div>
